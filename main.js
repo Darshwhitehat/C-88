@@ -1,91 +1,73 @@
-    //Create "mouseEvent" variable and set it as “Empty”.
-var mouseEvent="Empty";
-    //Create two variables "last_position_of_x" and  "last_position_of_y".
-var last_position_of_x, last_position_of_y;
+var mouseEvent = "empty";
 
     canvas = document.getElementById('myCanvas');
     ctx = canvas.getContext("2d");
     
-    //Define two variables color and width_of_line and assign values.
-    var color="black";
-    var width_of_line=1;
+    color = "black";
+    width_of_line = 2;
 
-    canvas.addEventListener("mousedown", my_mousedown);
+    /*Uncomment the correct line*/
+    //canvas.addEventListener("mousedown", my_mousedown);
+    //canvas.setEventListener("mousedown", my_mousedown);
+    //canvas.getEventListener("mousedown", my_mousedown);
 
     function my_mousedown(e)
     {
-        //Addictonal Activity start
-        color=document.getElementById("color").value ;
-        width_of_line=document.getElementById("width_line").value ;
-        //Addictonal Activity ends
-
-        mouseEvent = "mousedown";
+        color = document.getElementById("color").value;
+        width_of_line = document.getElementById("width_of_line").value;
+        radius = document.getElementById("radius").value;
+        mouseEvent = "mouseDown";
     }
 
-    //Create the addEventListener() function for mouseup(). 
-canvas.addEventListener("mouseup", my_mouseup);
+    /*
+    Create an event listener for "mousemove"
+    and call function my_mousemove
+    */
 
-function my_mouseup(e){
-    mouseEvent="mouseup";
-}
-
-    
-
-    //Create the addEventListener() function for mouseleave(). 
-canvas.addEventListener("mouseleave", my_mouseleave);
-
-function my_mouseleave(e){
-    mouseEvent="mouseleave";
-}
-
-
-
-canvas.addEventListener("mousemove", my_mousemove);
-
-    //Create the my_mouseup() function. Assign “mouseUP” in the variable mouseEvent.
     function my_mousemove(e)
     {
-        current_position_of_mouse_x = e.clientX - canvas.offsetLeft;
-        current_position_of_mouse_y = e.clientY - canvas.offsetTop;
+        /*Uncomment the correct line*/
+        //current_position_of_mouse_x = e.clientX - canvas.offsetLeft;
+        //current_position_of_mouse_x = e.clientX - canvas.offsetRight;
+        //current_position_of_mouse_x = e.clientX - canvas.offsetBottom;
 
-        //Check whether the mouseEvent is "mousedown".  
-        
-        //If yes call "beginPath()".
-        if(mouseEvent=="mousedown"){
-console.log(mouseEvent);
-        ctx.beginPath();
-        ctx.strokeStyle=color;
-        ctx.lineWidth=width_of_line;
-        
-        // Assign values to strokeStyle and lineWidth of canvas "ctx".
-        
+        /*
+        create current_position_of_mouse_y and
+        assign it e.clientY - canvas.offsetTop;
+        */
 
-        //print the current x and y coordinate.
-        console.log("Last position of x and y coordinates = ");
-        console.log("x = " + last_position_of_x + "y = " + last_position_of_y);
-ctx.moveTo(last_position_of_x,last_position_of_y);
-        //Call moveTo() with parameters last_position_of_x  and last_position_of_y.
-        // The drawing begins from these points.
-        
-
-        //print the current x and y coordinate.
+        if (mouseEvent == "mouseDown") {
         console.log("Current position of x and y coordinates = ");
         console.log("x  = " + current_position_of_mouse_x + "y = " + current_position_of_mouse_y);
-        //Call "lineTo()" function with 'current_position_of_mouse_x' and 'current_position_of_mouse_y'.
-        //Creation if lines end at these points
-        ctx.lineTo(current_position_of_mouse_x,current_position_of_mouse_y);
-ctx.stroke();
-        //Now we will draw the line using the stroke() function.
-        
-        
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width_of_line;
+        ctx.arc(current_position_of_mouse_x, current_position_of_mouse_y, radius ,0 , 2 * Math.PI);
+        ctx.stroke();
         }
-        // "last_position_of_x" and "last_position_of_y" is updated with current mouse position of x and y.
-        last_position_of_x = current_position_of_mouse_x; 
-        last_position_of_y = current_position_of_mouse_y;
+
     }
 
+    /*Create an event listener for "mouseup"
+    and call function my_mouseup
 
-//Additional Activity
-function clear_area() {
+    Create a function named my_mouseup with
+    event e as parameter.
+    
+    Assign "mouseUP" to mouseEvent
+    within the function
+    */
+    
+    /*Create an event listener for "mouseleave"
+    and call function my_mouseleave
+
+    Create a function named my_mouseleave with
+    event e as parameter.
+    
+    Assign "mouseleave" to mouseEvent
+    within the function
+    */
+
+function clearArea() {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
